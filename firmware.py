@@ -75,7 +75,7 @@ startMotors = threading.Thread(target=initiateMotors)
 startMotors.start()
 
 while True:
-    moveGate(direction="CCW", duration=15)
+    moveGate(direction="CW", duration=20)
     motorController(motoraddr, de_energize, "DeEnergize")
     time.sleep(20)
-    moveGate(direction="CW", duration=15)
+    moveGate(direction="CCW", duration=20)
