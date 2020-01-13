@@ -48,7 +48,7 @@ def motorController(motor, command, function_name, data=None):
                     break
             except IOError:
                 pass
-            sotLog("IOError -- Motor: " + str(motor) + " Command: " + function_name)
+            print("IOError -- Motor: " + str(motor) + " Command: " + function_name)
 
 def reset(motor):
     motorController(motor, exit_safe_start, "ExitSafeStart")
