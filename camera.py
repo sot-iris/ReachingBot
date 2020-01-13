@@ -78,6 +78,7 @@ def BlobDetection(frameToDetect, cropping=[0,350,0,450]):
         return pelletTrue, 1, 1, 1, time.time()
 
 if __name__ == "__main__":
+    Cam = Camera()
     while True:
         frameclass = Cam.FrameGenerator()
         frame = frameclass.frame
