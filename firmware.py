@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import time
+import threading
 import RPi.GPIO as GPIO
 from smbus import SMBus
 from uuid import getnode as get_mac
@@ -64,6 +65,14 @@ def moveGate(direction, speed=15000, duration=1):
     motorController(motoraddr, set_velocity, "SetVelocity", convert(signed_speed))
     time.sleep(duration)
     motorController(motoraddr, de_energize, "DeEnergize")
+
+def initiateMotors():
+    while True:
+        motorController(motoraddr, exit_safe_start, "ExitSafeStart")
+        time.sleep(0.8)
+
+startMotors = threading.Thread(target=initiateMotors)
+startMotors.start()
 
 while True:
     moveGate(direction="CW", duration=15)
