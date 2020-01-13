@@ -82,16 +82,5 @@ if __name__ == "__main__":
     while True:
         frameclass = Cam.FrameGenerator()
         frame = frameclass.frame
-        fps_counter.append(frameclass.time)
-        if len(fps_counter) == 10:
-            difference = fps_counter[9] - fps_counter[0]
-            fps = 10/difference
-            cv2.putText(frame,
-                        "FPS of LiveStream: {}".format(str(int(fps))),
-                        (10, 40),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        1,
-                        (255,255,255),
-                        2)
         cv2.imshow("LiveStream", frame)#[0:320, 0:480])
         cv2.waitKey(1)
