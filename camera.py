@@ -32,7 +32,7 @@ class Camera:
         self.videoCmd = self.videoCmd.split()
         self.cameraProcess = sp.Popen(self.videoCmd, stdout=sp.PIPE)
         atexit.register(self.cameraProcess.terminate)
-        sotLog("Camera started -- w={}, h={}, maxFPS={}, rotation={}".format(self.w, self.h, self.fps, self.rot))
+        print("Camera started -- w={}, h={}, maxFPS={}, rotation={}".format(self.w, self.h, self.fps, self.rot))
         time.sleep(0.1)
         self.cameraProcess.stdout.read(self.bytesPerFrame)
 
