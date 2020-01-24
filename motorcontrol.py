@@ -78,5 +78,5 @@ for i in range(100):
     moveGate(direction="CCW", duration=20)
     motorController(motoraddr, de_energize, "DeEnergize")
     time.sleep(2)
-    moveGate(direction="CW", duration=15)
+    moveGate(direction="CW", duration=20)
     print("trial: {}".format(i))
