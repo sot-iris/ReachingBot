@@ -82,7 +82,7 @@ def monitorPellet():
             #savetheVid.start()
             pelletPlaced = False
             print("Pellet no longer present.")
-            videoProcess(getTagStatus(), framesforvideo)
+            videoProcess("test", framesforvideo)
             framesforvideo.clear()
             break
         time.sleep(0.1)
