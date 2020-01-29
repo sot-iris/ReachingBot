@@ -89,7 +89,8 @@ def monitorPellet():
             #savetheVid.start()
             pelletPlaced = False
             print("Pellet no longer present.")
-            videoProcess(animalName, framesforvideo)
+            vidSave = threading.Thread(target=videoProcess, kwargs=dict(ID=animalName, _frames=framesforvideo))
+            vidSave.start()
             framesforvideo.clear()
             break
         time.sleep(0.1)

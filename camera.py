@@ -51,7 +51,7 @@ def remove(itemToRemove, wholeString):
             new += i
     return new
 
-def videoProcess(ID, _frames):
+def videoProcess(ID=None, _frames=None):
  #accepts RFID tag of animal and the list of frames to encode to video
     stamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
     videoName = "{}_{}.avi".format(ID, remove(":", stamp))
