@@ -55,12 +55,12 @@ def videoProcess(ID, _frames):
  #accepts RFID tag of animal and the list of frames to encode to video
     stamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
     videoName = "{}_{}.avi".format(ID, remove(":", stamp))
-    out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (450, 350))
+    out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (480, 350))
     fps = len(_frames) / (_frames[-1].time - _frames[0].time)
     print("fps: {}".format(fps))
     for n in range(len(_frames)):
         try:
-            roi = cv2.cvtColor(_frames[n].frame[0:350, 0:450], cv2.COLOR_GRAY2BGR)
+            roi = cv2.cvtColor(_frames[n].frame[50:400, 0:480], cv2.COLOR_GRAY2BGR)
             out.write(roi)
         except:
             print("this was the frame number: {}".format(n))

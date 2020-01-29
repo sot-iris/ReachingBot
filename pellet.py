@@ -8,7 +8,7 @@ import numpy as np
 
 from uuid import getnode as get_mac
 mac = get_mac()
-
+animalName = input("Please enter RFID number for aninal: ")
 Cam = Camera(width=480, height=640, FPS=250, rotation=90)
 waitTime = 600 #number of seconds the pellet is monitored for
 framesforvideo = deque(maxlen=700) #contains the frames that'll get stored to video
@@ -47,7 +47,7 @@ def blobStream():
             image = cameraStream[-1][160:480,0:480]
             if pel:
                 blobs.append(pel)
-                cv2.circle(image, (int(pel.x/0.4), int(pel.y/0.4)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
+                #cv2.circle(image, (int(pel.x/0.4), int(pel.y/0.4)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
             cv2.imshow("live frame", image)
             cv2.waitKey(1) & 0xFF
 
@@ -89,7 +89,7 @@ def monitorPellet():
             #savetheVid.start()
             pelletPlaced = False
             print("Pellet no longer present.")
-            videoProcess("test", framesforvideo)
+            videoProcess(animalName, framesforvideo)
             framesforvideo.clear()
             break
         time.sleep(0.1)
