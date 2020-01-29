@@ -46,6 +46,7 @@ def videoProcess(ID=None, _frames=None):
             print("this was the frame number: {}".format(n))
     out.release()
     framesforvideo.clear()
+    print("done")
 
 def processFrame(frametoProcess, cropping=[160,480,0,480]):
     y1, y2, x1, x2 = cropping
