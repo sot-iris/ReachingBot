@@ -1,8 +1,12 @@
 from pellet import *
 import argparse
+import time
 
 trial = 0
 error = 0
+
+print("Starting. Waiting 3 seconds to initiate.")
+time.sleep(3)
 
 while True:
     try:
