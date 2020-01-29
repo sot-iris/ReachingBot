@@ -15,6 +15,8 @@ exit_safe_start = 0x83
 de_energize = 0x86
 set_velocity = 0xE3
 
+MotorActive = False
+
 def computeTime(firstTime, secondInput):
     first = firstTime
     second = secondInput
@@ -62,14 +64,22 @@ def moveCols(direction, speed=15000, duration=1):
 
 def initiateMotors():
     while True:
+        if not MotorActive:
+            motorController(motoraddr, de_energize, "de_energize")
         motorController(motoraddr, exit_safe_start, "ExitSafeStart")
         time.sleep(0.8)
 
 def goDown():
+    global MotorActive
+    MotorActive = True
     moveCols(direction="CW", duration=20)
+    MotorActive = False
 
 def goUp():
+    global MotorActive
+    MotorActive = True
     moveCols(direction="CCW", duration=20)
+    MotorActive = False
 
 startMotors = threading.Thread(target=initiateMotors)
 startMotors.start()
