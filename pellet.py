@@ -37,7 +37,7 @@ def blobStream():
     while True:
         if len(cameraStream) > 2:
             pel = processFrame(frametoProcess=cameraStream[-1])
-            image = cameraStream[-1][0:320,0:480]
+            image = cameraStream[-1][160:480,0:480]
             if pel:
                 blobs.append(pel)
                 #cv2.circle(image, (int(pel.x/0.4), int(pel.y/0.4)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
