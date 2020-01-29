@@ -15,7 +15,6 @@ framesforvideo = deque(maxlen=700) #contains the frames that'll get stored to vi
 cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
 pelletPlaced = False #used to stop and start appending frames to buffer that'll get
-target_ = getTarget()
 
 class Pellet:
     def __init__(self, x, y, size, timestamp):
