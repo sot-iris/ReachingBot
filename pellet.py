@@ -73,15 +73,15 @@ def monitorPellet():
     while isPellet():
         blobs.pop()
         if computeTime(first, time.time()) > waitTime:
-            sotLog("Trial took too long.")
+            print("Trial took too long.")
             pelletPlaced = False
             break
         elif not blobs:
-            sotLog("Video saving thread started...")
+            print("Video saving thread started...")
             #savetheVid = threading.Thread(target=videoProcess, args=(getTagStatus(), cameraStream))
             #savetheVid.start()
             pelletPlaced = False
-            sotLog("Pellet no longer present.")
+            print("Pellet no longer present.")
             videoProcess(getTagStatus(), framesforvideo)
             framesforvideo.clear()
             break
