@@ -48,10 +48,6 @@ def motorController(motor, command, function_name, data=None):
                 pass
             print("IOError -- Motor: " + str(motor) + " Command: " + function_name)
 
-def reset(motor):
-    motorController(motor, exit_safe_start, "ExitSafeStart")
-    motorController(motor, energize, "Energize")
-
 def moveCols(direction, speed=15000, duration=1):
     first = time.time()
     if direction == "CW":
