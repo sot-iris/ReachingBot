@@ -59,6 +59,7 @@ def isPellet():
 
 def getPellet():
     goDown()
+    framesforvideo.clear()
     goUp()
     if isPellet():
         return True
@@ -91,7 +92,6 @@ def monitorPellet():
             print("Pellet no longer present.")
             vidSave = threading.Thread(target=videoProcess, kwargs=dict(ID=animalName, _frames=framesforvideo))
             vidSave.start()
-            framesforvideo.clear()
             break
         time.sleep(0.1)
 
