@@ -34,7 +34,7 @@ def convert(x):
 def reset(motor):
     motorController(motor, exit_safe_start, "ExitSafeStart")
     motorController(motor, energize, "Energize")
-    
+
 def motorController(motor, command, function_name, data=None):
     while True:
         try:
