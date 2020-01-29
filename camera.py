@@ -51,22 +51,6 @@ def remove(itemToRemove, wholeString):
             new += i
     return new
 
-def videoProcess(ID=None, _frames=None):
-    finalFrames = _frames
- #accepts RFID tag of animal and the list of frames to encode to video
-    stamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
-    videoName = "{}_{}.avi".format(ID, remove(":", stamp))
-    out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (480, 350))
-    fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
-    print("fps: {}".format(fps))
-    for n in range(len(finalFrames)):
-        try:
-            roi = cv2.cvtColor(finalFrames[n].frame[50:400, 0:480], cv2.COLOR_GRAY2BGR)
-            out.write(roi)
-        except:
-            print("this was the frame number: {}".format(n))
-    out.release()
-
 def BlobDetection(frameToDetect):
     frame = frameToDetect
     small = cv2.resize(frame, (0, 0), fx=0.4, fy=0.4)
