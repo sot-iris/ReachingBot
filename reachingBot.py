@@ -1,16 +1,14 @@
 from pellet import *
 import argparse
-import time
+
+maxTrials = input("Please enter the number of trials: ")
 
 trial = 0
 error = 0
 
-print("Starting. Waiting 3 seconds to initiate.")
-time.sleep(3)
-
 while True:
     try:
-        if trial < 50:
+        if trial < int(maxTrials):
             if error < 6:
                 print("Trial {}".format(trial))
                 if isPellet(): #asks whether there's a pellet on the spoon
