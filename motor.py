@@ -71,12 +71,14 @@ def initiateMotors():
         time.sleep(0.8)
 
 def goDown():
+    print("going Down")
     global MotorActive
     MotorActive = True
     moveCols(direction="CW", duration=20)
     MotorActive = False
 
 def goUp():
+    print("going Up")
     global MotorActive
     MotorActive = True
     moveCols(direction="CCW", duration=20)
