@@ -63,6 +63,7 @@ def moveCols(direction, speed=15000, duration=1):
     motorController(motoraddr, de_energize, "DeEnergize")
 
 def initiateMotors():
+    global MotorActive
     while True:
         if not MotorActive:
             motorController(motoraddr, de_energize, "de_energize")
