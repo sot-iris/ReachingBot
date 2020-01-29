@@ -11,11 +11,7 @@ while True:
         if trial < int(maxTrials):
             if error < 6:
                 print("Trial {}".format(trial))
-                if isPellet(): #asks whether there's a pellet on the spoon
-                    activateTrial() #returns true if the pellet was positioned correctly
-                    error = 0
-                    trial += 1
-                elif getPellet(): #gets a pellet from the dispenser (which turns for 3 seconds), returns true if pellet dispense is successful
+                if getPellet(): #gets a pellet from the dispenser (which turns for 3 seconds), returns true if pellet dispense is successful
                     activateTrial()
                     trial += 1
                     error = 0
