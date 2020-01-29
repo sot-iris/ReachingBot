@@ -44,6 +44,13 @@ class Camera:
         frame.shape = (self.h, self.w)  # set the correct dimensions for the numpy array
         return Frame(frame, time.time())
 
+def remove(itemToRemove, wholeString):
+    new = ""
+    for i in wholeString:
+        if i != itemToRemove:
+            new += i
+    return new
+
 def videoProcess(ID, _frames):
  #accepts RFID tag of animal and the list of frames to encode to video
     stamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
