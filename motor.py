@@ -31,6 +31,10 @@ def convert(x):
     bytearray = [Byte4, Byte3, Byte2, Byte1]
     return bytearray
 
+def reset(motor):
+    motorController(motor, exit_safe_start, "ExitSafeStart")
+    motorController(motor, energize, "Energize")
+    
 def motorController(motor, command, function_name, data=None):
     while True:
         try:
