@@ -73,7 +73,7 @@ def goDown():
     moveCols(direction="CW", duration=20)
 
 def goUp():
-    moveCols(direction="CW", duration=20)
+    moveCols(direction="CCW", duration=20)
 
 startMotors = threading.Thread(target=initiateMotors)
 startMotors.start()
