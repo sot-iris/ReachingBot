@@ -97,7 +97,7 @@ def monitorPellet():
 def activateTrial():
     global pelletPlaced
     print("Trial active.")
-    if getPellet():
+    if isPellet():
         pelletPlaced = True
         while pelletPlaced:
             monitorPellet()
