@@ -56,6 +56,7 @@ def videoProcess(ID=None, _frames=None):
     stamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
     videoName = "{}_{}.avi".format(ID, remove(":", stamp))
     out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (480, 350))
+    print(len(_frames))
     fps = len(_frames) / (_frames[-1].time - _frames[0].time)
     print("fps: {}".format(fps))
     for n in range(len(_frames)):
