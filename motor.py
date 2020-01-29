@@ -6,9 +6,7 @@ from smbus import SMBus
 from uuid import getnode as get_mac
 
 mac = get_mac()
-
 b = SMBus(1)
-
 motoraddr = int(14)
 
 rest_command_timeout = 0x8C
@@ -54,7 +52,7 @@ def reset(motor):
     motorController(motor, exit_safe_start, "ExitSafeStart")
     motorController(motor, energize, "Energize")
 
-def moveGate(direction, speed=15000, duration=1):
+def moveCols(direction, speed=15000, duration=1):
     first = time.time()
     if direction == "CW":
         signed_speed = speed * -1
@@ -71,12 +69,11 @@ def initiateMotors():
         motorController(motoraddr, exit_safe_start, "ExitSafeStart")
         time.sleep(0.8)
 
+def goDown():
+    moveCols(direction="CW", duration=20)
+
+def goUp():
+    moveCols(direction="CW", duration=20)
+
 startMotors = threading.Thread(target=initiateMotors)
 startMotors.start()
-
-for i in range(100):
-    moveGate(direction="CCW", duration=20)
-    motorController(motoraddr, de_energize, "DeEnergize")
-    time.sleep(2)
-    moveGate(direction="CW", duration=20)
-    print("trial: {}".format(i))

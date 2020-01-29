@@ -26,6 +26,7 @@ class Camera:
         self.h = height
         self.rot = rotation
         self.fps = FPS
+        self.ID = ID
         self.bytesPerFrame = self.w * self.h
         self.videoCmd = """raspividyuv -md 7 -rot {} -w {} -h {} --output - --timeout 0
         --framerate {} --luma --nopreview""".format(self.rot, self.w, self.h, self.fps)
@@ -35,7 +36,6 @@ class Camera:
         print("Camera started -- w={}, h={}, maxFPS={}, rotation={}".format(self.w, self.h, self.fps, self.rot))
         time.sleep(0.1)
         self.cameraProcess.stdout.read(self.bytesPerFrame)
-
 
     def FrameGenerator(self):
         self.cameraProcess.stdout.flush()
@@ -59,7 +59,6 @@ def videoProcess(ID, _frames):
         except:
             print("this was the frame number: {}".format(n))
     out.release()
-    data_Send.sendDatatoDB(videoName, ID, stamp, fps, getTarget())
 
 def BlobDetection(frameToDetect, cropping=[0,350,0,450]):
     frame = frameToDetect
@@ -67,15 +66,13 @@ def BlobDetection(frameToDetect, cropping=[0,350,0,450]):
     inverted = 255 - small  # inverts image
     keypoints = detector.detect(inverted)
     if keypoints:
-        pelletTrue = True
         for key in keypoints:
             coordx = key.pt[0]
             coordy = key.pt[1]
             size = key.size
-            return pelletTrue, coordx, coordy, size, time.time()
+            return coordx, coordy, size, time.time()
     else:
-        pelletTrue = False
-        return pelletTrue, 1, 1, 1, time.time()
+        return None
 
 if __name__ == "__main__":
     Cam = Camera()
