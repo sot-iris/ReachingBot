@@ -26,7 +26,6 @@ class Camera:
         self.h = height
         self.rot = rotation
         self.fps = FPS
-        self.ID = ID
         self.bytesPerFrame = self.w * self.h
         self.videoCmd = """raspividyuv -md 7 -rot {} -w {} -h {} --output - --timeout 0
         --framerate {} --luma --nopreview""".format(self.rot, self.w, self.h, self.fps)
