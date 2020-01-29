@@ -23,7 +23,7 @@ class Pellet:
         self.size = size
         self.timestamp = timestamp
 
-def processFrame(frametoProcess, cropping=[0,320,0,480]):
+def processFrame(frametoProcess, cropping=[160,480,0,480]):
     y1, y2, x1, x2 = cropping
     _frame_ = frametoProcess[y1:y2, x1:x2]
     processed =  BlobDetection(_frame_)
@@ -42,7 +42,6 @@ def blobStream():
                 blobs.append(pel)
                 cv2.circle(image, (int(pel.x/0.4), int(pel.y/0.4)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
             cv2.imshow("live frame", image)
-            #cv2.destroyAllWindows()
             cv2.waitKey(1) & 0xFF
 
 def isPellet():

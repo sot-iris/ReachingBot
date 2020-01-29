@@ -59,7 +59,7 @@ def videoProcess(ID, _frames):
             print("this was the frame number: {}".format(n))
     out.release()
 
-def BlobDetection(frameToDetect, cropping=[0,350,0,450]):
+def BlobDetection(frameToDetect):
     frame = frameToDetect
     small = cv2.resize(frame, (0, 0), fx=0.4, fy=0.4)
     inverted = 255 - small  # inverts image
