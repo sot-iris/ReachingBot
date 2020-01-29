@@ -16,6 +16,13 @@ cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
 pelletPlaced = False #used to stop and start appending frames to buffer that'll get
 
+def remove(itemToRemove, wholeString):
+    new = ""
+    for i in wholeString:
+        if i != itemToRemove:
+            new += i
+    return new
+
 class Pellet:
     def __init__(self, x, y, size, timestamp):
         self.x = x
