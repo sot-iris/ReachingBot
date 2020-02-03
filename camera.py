@@ -44,13 +44,6 @@ class Camera:
         frame.shape = (self.h, self.w)  # set the correct dimensions for the numpy array
         return Frame(frame, time.time())
 
-def remove(itemToRemove, wholeString):
-    new = ""
-    for i in wholeString:
-        if i != itemToRemove:
-            new += i
-    return new
-
 def BlobDetection(frameToDetect):
     frame = frameToDetect
     small = cv2.resize(frame, (0, 0), fx=0.4, fy=0.4)

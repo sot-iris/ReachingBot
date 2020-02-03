@@ -90,3 +90,9 @@ def goUp():
 
 startMotors = threading.Thread(target=initiateMotors)
 startMotors.start()
+
+if __name__ == "__main__":
+    while True:
+        goDown()
+        time.sleep(2)
+        goUp()

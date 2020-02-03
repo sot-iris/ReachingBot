@@ -10,7 +10,7 @@ from uuid import getnode as get_mac
 mac = get_mac()
 animalName = input("Please enter RFID number for aninal: ")
 Cam = Camera(width=480, height=640, FPS=250, rotation=90)
-waitTime = 600 #number of seconds the pellet is monitored for
+waitTime = 60 #number of seconds the pellet is monitored for
 framesforvideo = deque(maxlen=700) #contains the frames that'll get stored to video
 cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
