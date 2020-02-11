@@ -19,7 +19,7 @@ while True:
                     print("No pellet detected.")
                     error += 1
             else:
-                primt("Too many failed pellet retrievals")
+                print("Too many failed pellet retrievals")
                 break
         else:
             print("Trials ended")

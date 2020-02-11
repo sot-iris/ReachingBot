@@ -7,6 +7,8 @@ import threading
 import numpy as np
 
 from uuid import getnode as get_mac
+
+videoProcessed = True
 mac = get_mac()
 animalName = input("Please enter RFID number for aninal: ")
 Cam = Camera(width=480, height=640, FPS=250, rotation=90)
@@ -31,6 +33,8 @@ class Pellet:
         self.timestamp = timestamp
 
 def videoProcess(ID=None, _frames=None):
+    global videoProcessed
+    videoProcessed = False
     finalFrames = _frames
  #accepts RFID tag of animal and the list of frames to encode to video
     stamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
@@ -46,6 +50,7 @@ def videoProcess(ID=None, _frames=None):
             print("this was the frame number: {}".format(n))
     out.release()
     framesforvideo.clear()
+    videoProcessed = True
     print("done")
 
 def processFrame(frametoProcess, cropping=[160,480,0,480]):
@@ -76,7 +81,10 @@ def isPellet():
         return False
 
 def getPellet():
+    global videoProcessed
     goDown()
+    while not videoProcessed:
+        time.sleep(0.5)
     goUp()
     if isPellet():
         return True
@@ -102,9 +110,9 @@ def monitorPellet():
             pelletPlaced = False
             break
         elif not blobs:
-            print("Video saving thread started...")
             pelletPlaced = False
             print("Pellet no longer present.")
+            print("Video saving.")
             vidSave = threading.Thread(target=videoProcess, kwargs=dict(ID=animalName, _frames=framesforvideo))
             vidSave.start()
             break

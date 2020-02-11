@@ -78,14 +78,14 @@ def goDown():
     print("going Down")
     global MotorActive
     MotorActive = True
-    moveCols(direction="CW", duration=20)
+    moveCols(direction="CW", duration=10)
     MotorActive = False
 
 def goUp():
     print("going Up")
     global MotorActive
     MotorActive = True
-    moveCols(direction="CCW", duration=20)
+    moveCols(direction="CCW", duration=10)
     MotorActive = False
 
 startMotors = threading.Thread(target=initiateMotors)
