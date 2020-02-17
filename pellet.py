@@ -17,6 +17,7 @@ framesforvideo = deque(maxlen=700) #contains the frames that'll get stored to vi
 cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
 pelletPlaced = False #used to stop and start appending frames to buffer that'll get
+trial = 1
 
 def remove(itemToRemove, wholeString):
     new = ""
@@ -39,8 +40,10 @@ def videoProcess(ID=None, _frames=None):
     if len(finalFrames) > 0:
         print("number of frames: {}".format(len(finalFrames)))
      #accepts RFID tag of animal and the list of frames to encode to video
-        stamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
-        videoName = "{}_{}.avi".format(ID, remove(":", stamp))
+        timestamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
+        date = str(datetime.datetime.now()).split(" ")[0]
+        videoName = "AnimalID{}_TrialNo{}_{}_{}.avi".format(ID, trial, date, remove(":", timestamp)) #creature _ trial number _ date _ time
+        trial += 1
         out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (480, 350))
         fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
         print("fps: {}".format(fps))
@@ -55,7 +58,7 @@ def videoProcess(ID=None, _frames=None):
         videoProcessed = True
         print("done")
     else:
-        print("No frames passed...")
+        print("No frames to process...")
 
 def processFrame(frametoProcess, cropping=[160,480,0,480]):
     y1, y2, x1, x2 = cropping
