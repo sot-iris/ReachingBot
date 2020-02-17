@@ -37,6 +37,7 @@ def videoProcess(ID=None, _frames=None):
     videoProcessed = False
     finalFrames = _frames
     if len(finalFrames) > 0:
+        print("number of frames: {}".format(len(finalFrames)))
      #accepts RFID tag of animal and the list of frames to encode to video
         stamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
         videoName = "{}_{}.avi".format(ID, remove(":", stamp))
