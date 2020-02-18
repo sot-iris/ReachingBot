@@ -61,7 +61,7 @@ def videoProcess(ID=None, _frames=None):
     else:
         print("No frames to process...")
 
-def processFrame(frametoProcess, cropping=[160,480,0,480]):
+def processFrame(frametoProcess, cropping=[50,400,0,480]):
     y1, y2, x1, x2 = cropping
     _frame_ = frametoProcess[y1:y2, x1:x2]
     processed =  BlobDetection(_frame_)
@@ -75,7 +75,7 @@ def blobStream():
     while True:
         if len(cameraStream) > 2:
             pel = processFrame(frametoProcess=cameraStream[-1])
-            image = cameraStream[-1][160:480,0:480]
+            image = cameraStream[-1][50:400,0:480]
             if pel:
                 blobs.append(pel)
                 cv2.circle(image, (int(pel.x/0.4), int(pel.y/0.4)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
