@@ -57,7 +57,7 @@ def videoProcess(ID=None, _frames=None):
         out.release()
         framesforvideo.clear()
         videoProcessed = True
-        print("done")
+        print("{} saved.".format(videoName))
     else:
         print("No frames to process...")
 
