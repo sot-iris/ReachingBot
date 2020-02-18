@@ -120,7 +120,7 @@ def monitorPellet():
         elif not blobs:
             pelletPlaced = False
             print("Pellet no longer present.")
-            if len(framesforvideo) > 300:
+            if len(framesforvideo) > 150:
                 print("Video now saving...")
                 vidSave = threading.Thread(target=videoProcess, kwargs=dict(ID=animalName, _frames=framesforvideo))
                 vidSave.start()
