@@ -17,7 +17,7 @@ framesforvideo = deque(maxlen=700) #contains the frames that'll get stored to vi
 cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
 pelletPlaced = False #used to stop and start appending frames to buffer that'll get
-trial = 1
+trial_number = 1
 
 def remove(itemToRemove, wholeString):
     new = ""
@@ -35,6 +35,7 @@ class Pellet:
 
 def videoProcess(ID=None, _frames=None):
     global videoProcessed
+    global trial_number
     videoProcessed = False
     finalFrames = _frames
     if len(finalFrames) > 0:
@@ -42,8 +43,8 @@ def videoProcess(ID=None, _frames=None):
      #accepts RFID tag of animal and the list of frames to encode to video
         timestamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
         date = str(datetime.datetime.now()).split(" ")[0]
-        videoName = "AnimalID{}_TrialNo{}_{}_{}.avi".format(ID, trial, date, remove(":", timestamp)) #creature _ trial number _ date _ time
-        trial += 1
+        videoName = "AnimalID{}_TrialNo{}_{}_{}.avi".format(ID, trial_number, date, remove(":", timestamp)) #creature _ trial number _ date _ time
+        trial_number += 1
         out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (480, 350))
         fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
         print("fps: {}".format(fps))
