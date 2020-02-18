@@ -134,7 +134,6 @@ def activateTrial():
         pelletPlaced = True
         while pelletPlaced:
             monitorPellet()
-        print("Video saved locally.")
         return True
     else:
         print("Pellet not placed")
