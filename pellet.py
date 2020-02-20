@@ -93,7 +93,10 @@ def getPellet():
     goDown()
     while not videoProcessed:
         time.sleep(0.5)
-    goUp()
+    upwards = threading.Thread(target=goUp)
+    upwards.start()
+    time.sleep(7)
+    print("checking for pellet now.")
     if isPellet():
         return True
     else:
