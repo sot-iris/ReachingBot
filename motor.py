@@ -93,6 +93,6 @@ startMotors.start()
 
 if __name__ == "__main__":
     while True:
-        goDown()
-        time.sleep(2)
         goUp()
+        time.sleep(2)
+        goDown()
