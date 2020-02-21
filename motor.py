@@ -94,5 +94,5 @@ startMotors.start()
 if __name__ == "__main__":
     while True:
         goUp()
-        time.sleep(2)
+        time.sleep(4)
         goDown()
