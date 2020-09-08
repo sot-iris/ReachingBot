@@ -14,7 +14,7 @@ def goHome():
     print("Going home.")
     actuate()
     while not isHome():
-        pass
+        time.sleep(0.3)
     stop()
     print("Home position.")
 
