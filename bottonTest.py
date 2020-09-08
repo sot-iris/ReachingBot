@@ -16,3 +16,5 @@ def goHome():
         pass
     stop()
     print("Home position.")
+
+goHome()
