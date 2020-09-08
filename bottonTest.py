@@ -18,4 +18,5 @@ def goHome():
     stop()
     print("Home position.")
 
-goHome()
+for i in range(10):
+    goHome()
