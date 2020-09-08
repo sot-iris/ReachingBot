@@ -9,4 +9,4 @@ def isHome():
         return False
 
 while True:
-    print(isHome)
+    print(isHome())
