@@ -55,6 +55,7 @@ def motorController(motor, command, function_name, data=None):
             print("IOError -- Motor: " + str(motor) + " Command: " + function_name)
 
 def moveCols(direction, speed=15000, duration=0):
+    print("hello")
     first = time.time()
     if direction == "CW":
         signed_speed = speed * -1
@@ -78,9 +79,9 @@ def initiateMotors():
         time.sleep(0.8)
 
 def actuate(duration=0):
-    print("actuating")
     global MotorActive
     MotorActive = True
+    print("actuating")
     moveCols(direction="CW", duration=0)
 
 def stop():
