@@ -72,6 +72,7 @@ def initiateMotors():
         if not MotorActive:
             motorController(motoraddr, de_energize, "de_energize")
         motorController(motoraddr, exit_safe_start, "ExitSafeStart")
+        print("hey")
         time.sleep(0.8)
 
 def goDown():
