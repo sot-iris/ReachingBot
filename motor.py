@@ -78,6 +78,7 @@ def initiateMotors():
         time.sleep(0.8)
 
 def actuate():
+    print("actuating")
     global MotorActive
     MotorActive = True
     moveCols(direction="CW", duration=0)

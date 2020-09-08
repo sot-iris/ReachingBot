@@ -11,6 +11,7 @@ def isHome():
         return False
 
 def goHome():
+    print("Going home.")
     actuate()
     while not isHome():
         pass
