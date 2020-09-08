@@ -82,7 +82,6 @@ def actuate():
     global MotorActive
     MotorActive = True
     moveCols(direction="CW", duration=0)
-    MotorActive = False
 
 def stop():
     global MotorActive
