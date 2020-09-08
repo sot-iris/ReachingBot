@@ -13,6 +13,7 @@ def isHome():
 def goHome():
     print("Going home.")
     actuate()
+    time.sleep(1)
     while not isHome():
         time.sleep(0.3)
     stop()
