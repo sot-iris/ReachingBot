@@ -72,7 +72,6 @@ def initiateMotors():
         if not MotorActive:
             motorController(motoraddr, de_energize, "de_energize")
         motorController(motoraddr, exit_safe_start, "ExitSafeStart")
-        print("hey")
         time.sleep(0.8)
 
 def goDown():
@@ -86,7 +85,7 @@ def goUp():
     print("going Up")
     global MotorActive
     MotorActive = True
-    moveCols(direction="CCW", duration=20)
+    moveCols(direction="CCW", duration=10)
     MotorActive = False
 
 startMotors = threading.Thread(target=initiateMotors)
@@ -94,6 +93,6 @@ startMotors.start()
 
 if __name__ == "__main__":
     while True:
-        goDown()
-        time.sleep(2)
         goUp()
+        time.sleep(4)
+        goDown()
