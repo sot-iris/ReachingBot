@@ -21,3 +21,4 @@ def goHome():
 
 for i in range(10):
     goHome()
+    time.sleep(1)
