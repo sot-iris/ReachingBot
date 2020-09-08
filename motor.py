@@ -7,7 +7,7 @@ from uuid import getnode as get_mac
 
 mac = get_mac()
 b = SMBus(1)
-motoraddr = int(14)
+motoraddr = int(17)
 
 rest_command_timeout = 0x8C
 energize = 0x85
