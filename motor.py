@@ -77,7 +77,7 @@ def initiateMotors():
         motorController(motoraddr, exit_safe_start, "ExitSafeStart")
         time.sleep(0.8)
 
-def actuate():
+def actuate(duration=0):
     print("actuating")
     global MotorActive
     MotorActive = True
@@ -92,5 +92,5 @@ startMotors.start()
 
 if __name__ == "__main__":
     while True:
-        time.sleep(4)
         actuate(5)
+        time.sleep(4)
