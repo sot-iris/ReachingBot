@@ -54,7 +54,7 @@ def motorController(motor, command, function_name, data=None):
                 pass
             print("IOError -- Motor: " + str(motor) + " Command: " + function_name)
 
-def moveCols(direction, speed=15000, duration=1):
+def moveCols(direction, speed=15000, duration=0):
     first = time.time()
     if direction == "CW":
         signed_speed = speed * -1
@@ -63,8 +63,11 @@ def moveCols(direction, speed=15000, duration=1):
     motorController(motoraddr, exit_safe_start, "ExitSafeStart")
     motorController(motoraddr, energize, "Energize")
     motorController(motoraddr, set_velocity, "SetVelocity", convert(signed_speed))
-    time.sleep(duration)
-    motorController(motoraddr, de_energize, "DeEnergize")
+    if duration == 0:
+        print("Motor activated.")
+    else:
+        time.sleep(duration)
+        motorController(motoraddr, de_energize, "DeEnergize")
 
 def initiateMotors():
     global MotorActive
@@ -74,18 +77,14 @@ def initiateMotors():
         motorController(motoraddr, exit_safe_start, "ExitSafeStart")
         time.sleep(0.8)
 
-def goDown():
-    print("going Down")
+def actuate():
     global MotorActive
     MotorActive = True
-    moveCols(direction="CW", duration=10)
+    moveCols(direction="CW", duration=0)
     MotorActive = False
 
-def goUp():
-    print("going Up")
+def stop():
     global MotorActive
-    MotorActive = True
-    moveCols(direction="CCW", duration=10)
     MotorActive = False
 
 startMotors = threading.Thread(target=initiateMotors)
@@ -93,6 +92,5 @@ startMotors.start()
 
 if __name__ == "__main__":
     while True:
-        goUp()
         time.sleep(4)
-        goDown()
+        actuate(5)
