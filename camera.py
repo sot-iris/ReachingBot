@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from uuid import getnode as get_mac
+from collections import deque
 import time
 import datetime
 import cv2
