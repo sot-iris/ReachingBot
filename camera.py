@@ -21,7 +21,7 @@ class Frame:
         self.time = time
 
 class Camera:
-    def __init__(self, width=480, height=640, FPS=250, rotation=90):
+    def __init__(self, width=640, height=480, FPS=250, rotation=90):
         self.w = width
         self.h = height
         self.rot = rotation
@@ -63,5 +63,5 @@ if __name__ == "__main__":
     while True:
         frameclass = Cam.FrameGenerator()
         frame = frameclass.frame
-        cv2.imshow("LiveStream", frame)#[0:320, 0:480])
+        cv2.imshow("LiveStream", frame)
         cv2.waitKey(1)
