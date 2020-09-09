@@ -71,7 +71,7 @@ def FPStest():
     print("collecting 100 frames")
     for i in range(100):
         yep.append(Cam.FrameGenerator())
-    fps = 100/self.computeTime(yep[0].time, yep[-1].time)
+    fps = 100/computeTime(yep[0].time, yep[-1].time)
     return fps
 
 if __name__ == "__main__":
