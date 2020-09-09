@@ -58,13 +58,13 @@ def BlobDetection(frameToDetect):
     else:
         return None
 
-def computeTime(self, firstTime, secondInput):
+def computeTime(firstTime, secondInput):
     first = firstTime
     second = secondInput
     difference = second - first
     return difference
 
-def FPStest(self):
+def FPStest():
     Cam = Camera()
     yep = deque(maxlen=100)
     print("collecting 100 frames")
