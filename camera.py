@@ -22,7 +22,7 @@ class Frame:
         self.time = time
 
 class Camera:
-    def __init__(self, width=640, height=480, FPS=250, rotation=0):
+    def __init__(self, width=320, height=240, FPS=250, rotation=0):
         self.w = width
         self.h = height
         self.rot = rotation
