@@ -27,7 +27,7 @@ class Camera:
         self.rot = rotation
         self.fps = FPS
         self.bytesPerFrame = self.w * self.h
-        self.videoCmd = """raspividyuv -md 7 -rot {} -w {} -h {} --output - --timeout 0
+        self.videoCmd = """raspividyuv -md 5 -rot {} -w {} -h {} --output - --timeout 0
         --framerate {} --luma --nopreview""".format(self.rot, self.w, self.h, self.fps)
         self.videoCmd = self.videoCmd.split()
         self.cameraProcess = sp.Popen(self.videoCmd, stdout=sp.PIPE)
