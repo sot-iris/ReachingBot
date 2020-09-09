@@ -58,10 +58,25 @@ def BlobDetection(frameToDetect):
     else:
         return None
 
+def computeTime(self, firstTime, secondInput):
+    first = firstTime
+    second = secondInput
+    difference = second - first
+    return difference
+
+def FPStest(self):
+    Cam = Camera()
+    yep = deque(maxlen=100)
+    print("collecting 100 frames")
+    for i in range(100):
+        yep.append(Cam.FrameGenerator())
+    fps = 100/self.computeTime(yep[0].time, yep[-1].time)
+    return fps
+
 if __name__ == "__main__":
     Cam = Camera()
     while True:
         frameclass = Cam.FrameGenerator()
         frame = frameclass.frame
-        cv2.imshow("LiveStream", frame)
+        cv2.imshow("LiveStream", frame)#[30:220, 250:430])
         cv2.waitKey(1)
