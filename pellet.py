@@ -101,7 +101,7 @@ def monitorPellet():
             print("Pellet no longer present.")
             if len(framesforvideo) > 150:
                 print("Video now saving...")
-                videoProcess(_frames=framesforvideo))
+                videoProcess(_frames=framesforvideo)
                 vidSave.start()
             break
         time.sleep(0.1)
