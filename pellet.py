@@ -37,7 +37,7 @@ def videoProcess(_frames=None):
     videoName = "test.avi"
     out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
-    pLog(fps, "- FPS")
+    pLog((fps, "- FPS"))
     for n in tqdm(range(len(finalFrames)), position=1, desc="Progress for video {}".format(1)):
         try:
             roi = cv2.cvtColor(finalFrames[n].frame, cv2.COLOR_GRAY2BGR)
