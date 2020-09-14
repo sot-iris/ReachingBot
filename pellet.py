@@ -8,7 +8,7 @@ import numpy as np
 
 from uuid import getnode as get_mac
 
-Cam = Camera(width=320, height=240, FPS=250, rotation=90)
+Cam = Camera(width=320, height=240, FPS=250, rotation=0)
 framesforvideo = deque(maxlen=700) #contains the frames that'll get stored to video
 cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
