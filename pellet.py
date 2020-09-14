@@ -50,7 +50,7 @@ def processFrame(frametoProcess, cropping=[140,240,130,200]):
     processed =  BlobDetection(_frame_)
     if processed:
         x, y, size, time = processed
-        return Pellet(x, y, size, time)
+        return Pellet(x+x1, y+y1, size, time)
     else:
         return None
 
