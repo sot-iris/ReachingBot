@@ -9,7 +9,7 @@ import numpy as np
 from uuid import getnode as get_mac
 
 waitTime = 60
-Cam = Camera(width=320, height=240, FPS=250, rotation=0)
+Cam = Camera()
 framesforvideo = deque(maxlen=700) #contains the frames that'll get stored to video
 cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
@@ -35,7 +35,7 @@ def videoProcess(_frames=None):
     videoName = "test.avi"
     out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
-    print("fps: {}".format(fps))
+    print(fps, "- FPS")
     for n in range(len(finalFrames)):
         try:
             roi = cv2.cvtColor(finalFrames[n].frame, cv2.COLOR_GRAY2BGR)
@@ -62,9 +62,9 @@ def blobStream():
             image = cameraStream[-1]
             if pel:
                 blobs.append(pel)
-                cv2.circle(image, (int(pel.x), int(pel.y)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
-            cv2.imshow("live frame", image)
-            cv2.waitKey(1) & 0xFF
+                #cv2.circle(image, (int(pel.x), int(pel.y)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
+            #cv2.imshow("live frame", image)
+            #cv2.waitKey(1) & 0xFF
 
 def isPellet():
     if len(blobs):
@@ -103,7 +103,6 @@ def monitorPellet():
             if len(framesforvideo) > 150:
                 print("Video now saving...")
                 videoProcess(_frames=framesforvideo)
-                vidSave.start()
             break
         time.sleep(0.1)
 
