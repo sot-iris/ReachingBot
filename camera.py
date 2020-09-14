@@ -79,5 +79,5 @@ if __name__ == "__main__":
     while True:
         frameclass = Cam.FrameGenerator()
         frame = frameclass.frame
-        cv2.imshow("LiveStream")
+        cv2.imshow("LiveStream", frame)
         cv2.waitKey(1)
