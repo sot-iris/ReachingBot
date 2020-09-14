@@ -2,6 +2,7 @@
 import time
 import threading
 import RPi.GPIO as GPIO
+from reachingLogs import *
 from smbus import SMBus
 from uuid import getnode as get_mac
 
@@ -57,7 +58,7 @@ def motorController(motor, command, function_name, data=None):
                     break
             except IOError:
                 pass
-            print("IOError -- Motor: " + str(motor) + " Command: " + function_name)
+            pLog("IOError -- Motor: " + str(motor) + " Command: " + function_name)
 
 def moveCols(direction, speed=15000, duration=0):
     first = time.time()
@@ -69,7 +70,7 @@ def moveCols(direction, speed=15000, duration=0):
     motorController(motoraddr, energize, "Energize")
     motorController(motoraddr, set_velocity, "SetVelocity", convert(signed_speed))
     if duration == 0:
-        print("Motor activated.")
+        pLog("Motor activated.")
     else:
         time.sleep(duration)
         motorController(motoraddr, de_energize, "DeEnergize")

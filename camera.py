@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from uuid import getnode as get_mac
 from collections import deque
+from tqdm import tqdm
+from reachingLogs import *
 import time
 import datetime
 import cv2
@@ -33,7 +35,7 @@ class Camera:
         self.videoCmd = self.videoCmd.split()
         self.cameraProcess = sp.Popen(self.videoCmd, stdout=sp.PIPE)
         atexit.register(self.cameraProcess.terminate)
-        print("Camera started -- w={}, h={}, maxFPS={}, rotation={}".format(self.w, self.h, self.fps, self.rot))
+        pLog("Camera started -- w={}, h={}, maxFPS={}, rotation={}".format(self.w, self.h, self.fps, self.rot))
         time.sleep(0.1)
         self.cameraProcess.stdout.read(self.bytesPerFrame)
 
@@ -41,7 +43,7 @@ class Camera:
         self.cameraProcess.stdout.flush()
         frame = np.fromfile(self.cameraProcess.stdout, count=self.bytesPerFrame, dtype=np.uint8)
         if frame.size != self.bytesPerFrame:
-            print("Error: Camera stream closed unexpectedly")
+            pLog("Error: Camera stream closed unexpectedly")
         frame.shape = (self.h, self.w)  # set the correct dimensions for the numpy array
         return Frame(frame, time.time())
 
@@ -68,7 +70,7 @@ def computeTime(firstTime, secondInput):
 def FPStest():
     Cam = Camera()
     yep = deque(maxlen=100)
-    print("collecting 100 frames")
+    pLog("collecting 100 frames")
     for i in range(100):
         yep.append(Cam.FrameGenerator())
     fps = 100/computeTime(yep[0].time, yep[-1].time)

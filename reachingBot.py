@@ -1,4 +1,5 @@
 from pellet import *
+from reachingLogs import *
 import argparse
 
 maxTrials = input("Please enter the number of trials: ")
@@ -10,21 +11,21 @@ while True:
     try:
         if trial < int(maxTrials):
             if error < 6:
-                print("Trial {}".format(trial))
+                pLog("Trial {}".format(trial))
                 if getPellet(): #gets a pellet from the dispenser (which turns for 3 seconds), returns true if pellet dispense is successful
                     activateTrial()
                     trial += 1
                     error = 0
                 else:
-                    print("No pellet detected.")
+                    pLog("No pellet detected.")
                     error += 1
             else:
-                print("Too many failed pellet retrievals")
+                pLog("Too many failed pellet retrievals")
                 break
         else:
-            print("Trials ended")
+            pLog("Trials ended")
             break
 
     except KeyboardInterrupt:
         cv2.destroyAllWindows()
-        print("program terminated")
+        pLog("program terminated")

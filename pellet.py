@@ -1,7 +1,9 @@
 from __future__ import division
 from motor import *
 from collections import deque
+from tqdm import tqdm
 from camera import *
+from reachingLogs import *
 import time
 import threading
 import numpy as np
@@ -10,7 +12,7 @@ from uuid import getnode as get_mac
 
 waitTime = 60
 Cam = Camera()
-framesforvideo = deque(maxlen=700) #contains the frames that'll get stored to video
+framesforvideo = deque(maxlen=350) #contains the frames that'll get stored to video
 cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
 pelletPlaced = False #used to stop and start appending frames to buffer that'll get
@@ -35,15 +37,15 @@ def videoProcess(_frames=None):
     videoName = "test.avi"
     out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
-    print(fps, "- FPS")
-    for n in range(len(finalFrames)):
+    pLog(fps, "- FPS")
+    for n in tqdm(range(len(finalFrames)), position=1, desc="Progress for video {}".format(position)):
         try:
             roi = cv2.cvtColor(finalFrames[n].frame, cv2.COLOR_GRAY2BGR)
             out.write(roi)
         except:
-            print("this was the frame number: {}".format(n))
+            pLog("this was the frame number: {}".format(n))
     out.release()
-    print("{} saved.".format(videoName))
+    pLog("{} saved.".format(videoName))
 
 def processFrame(frametoProcess, cropping=[140,240,130,200]):
     y1, y2, x1, x2 = cropping
@@ -80,7 +82,6 @@ def getPellet():
         return False
 
 def addFrames():
-    print("cam stream started")
     global pelletPlaced
     while True:
         frametoProcess = Cam.FrameGenerator()
@@ -94,28 +95,28 @@ def monitorPellet():
     while isPellet():
         blobs.pop()
         if computeTime(first, time.time()) > waitTime:
-            print("Trial took too long.")
+            pLog("Trial took too long.")
             pelletPlaced = False
             break
         elif not blobs:
             pelletPlaced = False
-            print("Pellet no longer present.")
+            pLog("Pellet no longer present.")
             if len(framesforvideo) > 150:
-                print("Video now saving...")
+                pLog("Video now saving...")
                 videoProcess(_frames=framesforvideo)
             break
         time.sleep(0.1)
 
 def activateTrial():
     global pelletPlaced
-    print("Trial active.")
+    pLog("Trial active.")
     if isPellet():
         pelletPlaced = True
         while pelletPlaced:
             monitorPellet()
         return True
     else:
-        print("Pellet not placed")
+        pLog("Pellet not placed")
         return False
 
 start_stream = threading.Thread(target=addFrames)
