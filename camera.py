@@ -47,8 +47,8 @@ class Camera:
 
 def BlobDetection(frameToDetect):
     frame = frameToDetect
-    small = cv2.resize(frame, (0, 0), fx=0.4, fy=0.4)
-    inverted = 255 - small  # inverts image
+    #small = cv2.resize(frame, (0, 0), fx=0.4, fy=0.4)
+    inverted = 255 - frame  # inverts image
     keypoints = detector.detect(inverted)
     if keypoints:
         for key in keypoints:
@@ -79,5 +79,5 @@ if __name__ == "__main__":
     while True:
         frameclass = Cam.FrameGenerator()
         frame = frameclass.frame
-        cv2.imshow("LiveStream", frame)#[30:220, 250:430])
+        cv2.imshow("LiveStream")
         cv2.waitKey(1)

@@ -8,11 +8,7 @@ import numpy as np
 
 from uuid import getnode as get_mac
 
-videoProcessed = True
-mac = get_mac()
-animalName = input("Please enter RFID number for aninal: ")
-Cam = Camera(width=480, height=640, FPS=250, rotation=90)
-waitTime = 60 #number of seconds the pellet is monitored for
+Cam = Camera(width=320, height=240, FPS=250, rotation=90)
 framesforvideo = deque(maxlen=700) #contains the frames that'll get stored to video
 cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
@@ -33,35 +29,22 @@ class Pellet:
         self.size = size
         self.timestamp = timestamp
 
-def videoProcess(ID=None, _frames=None):
-    global videoProcessed
-    global trial_number
-    videoProcessed = False
+def videoProcess(_frames=None):
     finalFrames = _frames
-    if len(finalFrames) > 0:
-        print("number of frames: {}".format(len(finalFrames)))
-     #accepts RFID tag of animal and the list of frames to encode to video
-        timestamp = str(datetime.datetime.now()).split(" ")[1].split(".")[0].strip(":")
-        date = str(datetime.datetime.now()).split(" ")[0]
-        videoName = "AnimalID{}_TrialNo{}_{}_{}.avi".format(ID, trial_number, date, remove(":", timestamp)) #creature _ trial number _ date _ time
-        trial_number += 1
-        out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (480, 350))
-        fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
-        print("fps: {}".format(fps))
-        for n in range(len(finalFrames)):
-            try:
-                roi = cv2.cvtColor(finalFrames[n].frame[50:400, 0:480], cv2.COLOR_GRAY2BGR)
-                out.write(roi)
-            except:
-                print("this was the frame number: {}".format(n))
-        out.release()
-        framesforvideo.clear()
-        videoProcessed = True
-        print("{} saved.".format(videoName))
-    else:
-        print("No frames to process...")
+    videoName = "test.avi"
+    out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (320, 240))
+    fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
+    print("fps: {}".format(fps))
+    for n in range(len(finalFrames)):
+        try:
+            roi = cv2.cvtColor(finalFrames[n].frame, cv2.COLOR_GRAY2BGR)
+            out.write(roi)
+        except:
+            print("this was the frame number: {}".format(n))
+    out.release()
+    print("{} saved.".format(videoName))
 
-def processFrame(frametoProcess, cropping=[50,400,0,480]):
+def processFrame(frametoProcess, cropping=[140,240,130,200]):
     y1, y2, x1, x2 = cropping
     _frame_ = frametoProcess[y1:y2, x1:x2]
     processed =  BlobDetection(_frame_)
@@ -75,10 +58,10 @@ def blobStream():
     while True:
         if len(cameraStream) > 2:
             pel = processFrame(frametoProcess=cameraStream[-1])
-            image = cameraStream[-1][50:400,0:480]
+            image = cameraStream[-1]
             if pel:
                 blobs.append(pel)
-                cv2.circle(image, (int(pel.x/0.4), int(pel.y/0.4)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
+                cv2.circle(image, (int(pel.x), int(pel.y)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
             cv2.imshow("live frame", image)
             cv2.waitKey(1) & 0xFF
 
@@ -89,14 +72,7 @@ def isPellet():
         return False
 
 def getPellet():
-    global videoProcessed
-    goDown()
-    while not videoProcessed:
-        time.sleep(0.5)
-    upwards = threading.Thread(target=goUp)
-    upwards.start()
-    time.sleep(7)
-    print("checking for pellet now.")
+    goHome()
     if isPellet():
         return True
     else:
@@ -125,7 +101,7 @@ def monitorPellet():
             print("Pellet no longer present.")
             if len(framesforvideo) > 150:
                 print("Video now saving...")
-                vidSave = threading.Thread(target=videoProcess, kwargs=dict(ID=animalName, _frames=framesforvideo))
+                videoProcess(_frames=framesforvideo))
                 vidSave.start()
             break
         time.sleep(0.1)

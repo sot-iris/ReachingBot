@@ -5,6 +5,11 @@ import RPi.GPIO as GPIO
 from smbus import SMBus
 from uuid import getnode as get_mac
 
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
 mac = get_mac()
 b = SMBus(1)
 motoraddr = int(17)
@@ -85,6 +90,19 @@ def actuate():
 def stop():
     global MotorActive
     MotorActive = False
+
+def isHome():
+    if GPIO.input(27) == 1:
+        return True
+    else:
+        return False
+
+def goHome():
+    actuate()
+    time.sleep(1)
+    while not isHome():
+        time.sleep(0.3)
+    stop()
 
 startMotors = threading.Thread(target=initiateMotors)
 startMotors.start()
