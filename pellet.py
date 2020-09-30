@@ -43,6 +43,10 @@ class Pellet:
         self.size = size
         self.timestamp = timestamp
 
+def stop():
+    global cameraOn
+    cameraOn = False
+
 def videoProcess(_frames=None):
     global trial_number
     finalFrames = _frames
