@@ -2,6 +2,7 @@ from pellet import *
 from reachingLogs import *
 import argparse
 
+global cameraOn
 maxTrials = raw_input("Please enter the number of trials: ")
 
 trial = 0
