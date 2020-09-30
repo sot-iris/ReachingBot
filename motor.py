@@ -21,6 +21,7 @@ exit_safe_start = 0x83
 de_energize = 0x86
 set_velocity = 0xE3
 
+motorTurnOff = False
 MotorActive = False
 
 def computeTime(firstTime, secondInput):
@@ -75,9 +76,13 @@ def moveCols(direction, speed=15000, duration=0):
         time.sleep(duration)
         motorController(motoraddr, de_energize, "DeEnergize")
 
+def turnOff():
+    global motorTurnOff
+    motorTurnOff = True
+
 def initiateMotors():
     global MotorActive
-    while True:
+    while not motorTurnOff:
         if not MotorActive:
             motorController(motoraddr, de_energize, "de_energize")
         motorController(motoraddr, exit_safe_start, "ExitSafeStart")

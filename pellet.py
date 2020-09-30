@@ -43,8 +43,9 @@ class Pellet:
         self.size = size
         self.timestamp = timestamp
 
-def stop():
+def stopCamera():
     global cameraOn
+    turnOff()
     cameraOn = False
 
 def videoProcess(_frames=None):
