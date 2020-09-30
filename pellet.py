@@ -16,7 +16,7 @@ timePoint = input("Please enter the timePoint: ")
 
 foler = "{}_{}".format(RFID_NAME, timePoint)
 if not os.path.exists(folder):
-    os.makedirs("{}_{}".format(folder)
+    os.makedirs("{}_{}".format(folder))
 
 waitTime = 60
 Cam = Camera()
