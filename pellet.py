@@ -64,9 +64,9 @@ def blobStream():
             image = cameraStream[-1]
             if pel:
                 blobs.append(pel)
-                #cv2.circle(image, (int(pel.x), int(pel.y)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
-            #cv2.imshow("live frame", image)
-            #cv2.waitKey(1) & 0xFF
+                cv2.circle(image, (int(pel.x), int(pel.y)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
+            cv2.imshow("live frame", image)
+            cv2.waitKey(1) & 0xFF
 
 def isPellet():
     if len(blobs):

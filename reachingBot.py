@@ -10,9 +10,9 @@ error = 0
 while True:
     try:
         if trial < int(maxTrials):
-            if error < 6:
-                pLog("Trial {}".format(trial))
+            if error < 5:
                 if getPellet(): #gets a pellet from the dispenser (which turns for 3 seconds), returns true if pellet dispense is successful
+                    pLog("Trial {}".format(trial))
                     activateTrial()
                     trial += 1
                     error = 0
