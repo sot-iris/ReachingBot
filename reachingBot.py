@@ -31,5 +31,6 @@ while True:
         stopCamera()
         cv2.destroyAllWindows()
         pLog("program terminated")
+        break
 
 print("All done here")
