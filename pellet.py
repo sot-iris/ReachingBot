@@ -6,9 +6,17 @@ from camera import *
 from reachingLogs import *
 import time
 import threading
+import os
 import numpy as np
 
 from uuid import getnode as get_mac
+
+RFID_NAME = input("Please enter the RFID number: ")
+timePoint = input("Please enter the timePoint: ")
+
+foler = "{}_{}".format(RFID_NAME, timePoint)
+if not os.path.exists(folder):
+    os.makedirs("{}_{}".format(folder)
 
 waitTime = 60
 Cam = Camera()
@@ -34,7 +42,7 @@ class Pellet:
 
 def videoProcess(_frames=None):
     finalFrames = _frames
-    videoName = "test.avi"
+    videoName = "{}_week{}_trial{}.avi".format(RFID_NAME, timePoint, trial_number)
     out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
     pLog((fps, "- FPS"))
@@ -46,6 +54,7 @@ def videoProcess(_frames=None):
             pLog("this was the frame number: {}".format(n))
     out.release()
     pLog("{} saved.".format(videoName))
+    trial_number += 1
 
 def processFrame(frametoProcess, cropping=[140,240,90,160]):
     y1, y2, x1, x2 = cropping
@@ -94,11 +103,7 @@ def monitorPellet():
     first = time.time()
     while isPellet():
         blobs.pop()
-        if computeTime(first, time.time()) > waitTime:
-            pLog("Trial took too long.")
-            pelletPlaced = False
-            break
-        elif not blobs:
+        if not blobs:
             pelletPlaced = False
             pLog("Pellet no longer present.")
             if len(framesforvideo) > 150:
