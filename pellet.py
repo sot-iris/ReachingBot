@@ -11,8 +11,8 @@ import numpy as np
 
 from uuid import getnode as get_mac
 
-videoSave = input("Do you want to save the videos? y/n").lower()
-if videoSave:
+videoSave = input(["Do you want to save the videos? y/n: "])
+if videoSave.lower() == "y":
     RFID_NAME = input("Please enter the RFID number: ")
     timePoint = input("Please enter the timePoint: ")
     folder = "{}_week{}".format(RFID_NAME, timePoint)
