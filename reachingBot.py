@@ -27,5 +27,6 @@ while True:
             break
 
     except KeyboardInterrupt:
+        cameraOn = False
         cv2.destroyAllWindows()
         pLog("program terminated")

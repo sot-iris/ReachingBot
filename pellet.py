@@ -28,7 +28,7 @@ cameraStream = deque(maxlen=10) #containts the frames from the live stream
 blobs = deque(maxlen=10) #contains instances of the Pellet class
 pelletPlaced = False #used to stop and start appending frames to buffer that'll get
 trial_number = 1
-
+cameraOn = True
 def remove(itemToRemove, wholeString):
     new = ""
     for i in wholeString:
@@ -71,7 +71,8 @@ def processFrame(frametoProcess, cropping=[140,240,90,160]):
         return None
 
 def blobStream():
-    while True:
+    global cameraOn
+    while cameraOn:
         if len(cameraStream) > 2:
             pel = processFrame(frametoProcess=cameraStream[-1])
             image = cameraStream[-1]
@@ -95,8 +96,9 @@ def getPellet():
         return False
 
 def addFrames():
+    global cameraOn
     global pelletPlaced
-    while True:
+    while cameraOn:
         frametoProcess = Cam.FrameGenerator()
         cameraStream.append(frametoProcess.frame)
         if pelletPlaced:
