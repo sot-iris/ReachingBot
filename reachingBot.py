@@ -2,7 +2,7 @@ from pellet import *
 from reachingLogs import *
 import argparse
 
-maxTrials = input("Please enter the number of trials: ")
+maxTrials = raw_input("Please enter the number of trials: ")
 
 trial = 0
 error = 0
