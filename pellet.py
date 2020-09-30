@@ -14,7 +14,7 @@ from uuid import getnode as get_mac
 RFID_NAME = input("Please enter the RFID number: ")
 timePoint = input("Please enter the timePoint: ")
 
-folder = "{}_{}".format(RFID_NAME, timePoint)
+folder = "{}_week{}".format(RFID_NAME, timePoint)
 if not os.path.exists(folder):
     os.makedirs((folder))
 
