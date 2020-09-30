@@ -47,7 +47,7 @@ def videoProcess(_frames=None):
     out.release()
     pLog("{} saved.".format(videoName))
 
-def processFrame(frametoProcess, cropping=[140,240,130,200]):
+def processFrame(frametoProcess, cropping=[140,240,90,160]):
     y1, y2, x1, x2 = cropping
     _frame_ = frametoProcess[y1:y2, x1:x2]
     processed =  BlobDetection(_frame_)
