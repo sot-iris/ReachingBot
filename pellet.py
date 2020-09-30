@@ -11,12 +11,15 @@ import numpy as np
 
 from uuid import getnode as get_mac
 
-RFID_NAME = input("Please enter the RFID number: ")
-timePoint = input("Please enter the timePoint: ")
-
-folder = "{}_week{}".format(RFID_NAME, timePoint)
-if not os.path.exists(folder):
-    os.makedirs((folder))
+videoSave = input("Do you want to save the videos? y/n").lower()
+if videoSave:
+    RFID_NAME = input("Please enter the RFID number: ")
+    timePoint = input("Please enter the timePoint: ")
+    folder = "{}_week{}".format(RFID_NAME, timePoint)
+    if not os.path.exists(folder):
+        os.makedirs((folder))
+else:
+    pLog("Not saving videos.")
 
 waitTime = 60
 Cam = Camera()
@@ -107,9 +110,10 @@ def monitorPellet():
         if not blobs:
             pelletPlaced = False
             pLog("Pellet no longer present.")
-            if len(framesforvideo) > 150:
-                pLog("Video now saving...")
-                videoProcess(_frames=framesforvideo)
+            if videoSave == "y":
+                if len(framesforvideo) > 150:
+                    pLog("Video now saving...")
+                    videoProcess(_frames=framesforvideo)
             break
         time.sleep(0.1)
 
