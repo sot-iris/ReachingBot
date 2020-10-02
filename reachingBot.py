@@ -33,4 +33,6 @@ while True:
         pLog("program terminated")
         break
 
+cv2.destroyAllWindows()
+stopCamera()
 print("All done here")
