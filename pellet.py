@@ -85,7 +85,7 @@ def blobStream():
             if pel:
                 blobs.append(pel)
                 cv2.circle(image, (int(pel.x), int(pel.y)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
-            cv2.imshow("live frame", image[140:240,90:160])
+            cv2.imshow("live frame", image)#[140:240,90:160])
             cv2.waitKey(1) & 0xFF
 
 def isPellet():
