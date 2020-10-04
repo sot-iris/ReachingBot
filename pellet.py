@@ -12,6 +12,13 @@ import numpy as np
 from uuid import getnode as get_mac
 
 videoSave = raw_input("Do you want to save the videos? y/n: ")
+
+vidShow = raw_input("Display vid?: y/n ")
+if vidShow.lower() == "y":
+    showImage = True
+else:
+    showImage = True
+
 if videoSave.lower() == "y":
     RFID_NAME = raw_input("Please enter the RFID number: ")
     timePoint = raw_input("Please enter the timePoint: ")
@@ -78,15 +85,18 @@ def processFrame(frametoProcess, cropping=[140,240,90,160]):
 
 def blobStream():
     global cameraOn
+    global showImage
     while cameraOn:
         if len(cameraStream) > 2:
             pel = processFrame(frametoProcess=cameraStream[-1])
             image = cameraStream[-1]
             if pel:
                 blobs.append(pel)
-                #cv2.circle(image, (int(pel.x), int(pel.y)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
-            #cv2.imshow("live frame", image)#[140:240,90:160])
-            #cv2.waitKey(1) & 0xFF
+                if showImage:
+                    cv2.circle(image, (int(pel.x), int(pel.y)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
+            if showImage
+                cv2.imshow("live frame", image)#[140:240,90:160])
+                cv2.waitKey(1) & 0xFF
 
 def isPellet():
     if len(blobs):
