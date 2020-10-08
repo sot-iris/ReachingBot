@@ -17,7 +17,7 @@ vidShow = raw_input("Display vid?: y/n ")
 if vidShow.lower() == "y":
     showImage = True
 else:
-    showImage = True
+    showImage = False
 
 if videoSave.lower() == "y":
     RFID_NAME = raw_input("Please enter the RFID number: ")
