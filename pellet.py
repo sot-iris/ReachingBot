@@ -7,6 +7,7 @@ from reachingLogs import *
 import time
 import threading
 import os
+import pickle
 import numpy as np
 
 from uuid import getnode as get_mac
@@ -73,6 +74,18 @@ def videoProcess(_frames=None):
     pLog("{} saved.".format(videoName))
     trial_number += 1
 
+def savePickle(_frames=None):
+    global trial_number
+    finalFrames = _frames
+    pickleName = "{}/{}_week{}_trial{}.pkl".format(folder, RFID_NAME, timePoint, trial_number)
+    out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (320, 240))
+    fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
+    pLog((fps, "- FPS"))
+    with open(pickleName, 'wb') as f:
+        pickle.dump(finalFrames, f)
+    pLog("pickle {} saved.".format(pickleName))
+    trial_number += 1
+
 def processFrame(frametoProcess, cropping=[140,240,90,160]):
     y1, y2, x1, x2 = cropping
     _frame_ = frametoProcess[y1:y2, x1:x2]
@@ -131,7 +144,7 @@ def monitorPellet():
             if videoSave == "y":
                 if len(framesforvideo) > 150:
                     pLog("Video now saving...")
-                    videoProcess(_frames=framesforvideo)
+                    savePickle(_frames=framesforvideo)
             break
         time.sleep(0.1)
 
