@@ -61,17 +61,17 @@ def videoProcess(_frames=None):
     global trial_number
     finalFrames = _frames
     videoName = "{}/{}_week{}_trial{}.avi".format(folder, RFID_NAME, timePoint, trial_number)
-    #out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"X264"), 30, (320, 240))
+    out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
     pLog((fps, "- FPS"))
     for n in tqdm(range(len(finalFrames)), position=1, desc="Progress for video {}".format(1)):
         try:
             roi = cv2.cvtColor(finalFrames[n].frame, cv2.COLOR_GRAY2BGR)
-            cv2.imwrite("frame{}.jpg".format(n), roi)
+            out.write(roi)
         except:
             pLog("this was the frame number: {}".format(n))
-    #out.release()
-    #pLog("{} saved.".format(videoName))
+    out.release()
+    pLog("{} saved.".format(videoName))
     trial_number += 1
 
 def savePickle(_frames=None):
