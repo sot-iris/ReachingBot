@@ -67,7 +67,7 @@ def videoProcess(_frames=None):
     for n in tqdm(range(len(finalFrames)), position=1, desc="Progress for video {}".format(1)):
         try:
             roi = cv2.cvtColor(finalFrames[n].frame, cv2.COLOR_GRAY2BGR)
-            cv2.imwrite("{}/{}_week{}_trial{}/frame{}.jpg".format(folder, RFID_NAME, timePoint, trial_number, n), roi)
+            cv2.imwrite("frame{}.jpg".format(n), roi)
         except:
             pLog("this was the frame number: {}".format(n))
     #out.release()
