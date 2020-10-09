@@ -61,7 +61,7 @@ def videoProcess(_frames=None):
     global trial_number
     finalFrames = _frames
     videoName = "{}/{}_week{}_trial{}.avi".format(folder, RFID_NAME, timePoint, trial_number)
-    out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (320, 240))
+    out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"X264"), 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
     pLog((fps, "- FPS"))
     for n in tqdm(range(len(finalFrames)), position=1, desc="Progress for video {}".format(1)):
@@ -143,7 +143,7 @@ def monitorPellet():
             if videoSave == "y":
                 if len(framesforvideo) > 150:
                     pLog("Video now saving...")
-                    savePickle(_frames=framesforvideo)
+                    videoProcess(_frames=framesforvideo)
             break
         time.sleep(0.1)
 
