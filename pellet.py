@@ -78,7 +78,6 @@ def savePickle(_frames=None):
     global trial_number
     finalFrames = _frames
     pickleName = "{}/{}_week{}_trial{}.pkl".format(folder, RFID_NAME, timePoint, trial_number)
-    out = cv2.VideoWriter(videoName, cv2.cv.CV_FOURCC(*"XVID"), 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
     pLog((fps, "- FPS"))
     with open(pickleName, 'wb') as f:
