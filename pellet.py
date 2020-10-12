@@ -61,7 +61,7 @@ def videoProcess(_frames=None):
     global trial_number
     finalFrames = _frames
     videoName = "{}/{}_week{}_trial{}.avi".format(folder, RFID_NAME, timePoint, trial_number)
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
     out = cv2.VideoWriter(videoName, fourcc, 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
     pLog((fps, "- FPS"))
