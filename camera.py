@@ -16,7 +16,12 @@ params.filterByArea = True
 params.minArea = 100
 params.minThreshold = 50
 params.maxThreshold = 255
-detector = cv2.SimpleBlobDetector(params)
+
+ver = (cv2.__version__).split('.')
+if int(ver[0]) < 3 :
+  detector = cv2.SimpleBlobDetector(params)
+else:
+  detector = cv2.SimpleBlobDetector_create(params)
 
 class Frame:
     def __init__(self, frame, time):
