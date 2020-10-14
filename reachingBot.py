@@ -12,7 +12,7 @@ import numpy as np
 import argparse
 
 parser = argparse.ArgumentParser(description='Firmware for running the ReachingBot.')
-parser.add_argument('-v', '--videoSave', action='store_true', metavar='', required=True, help='Do you want to save the videos?')
+parser.add_argument('-v', '--videoSave', action='store_true', help='Do you want to save the videos?')
 parser.add_argument('-m', '--maxTrials', type=int, metavar='', required=True, help='Number of trials to execute.')
 parser.add_argument('-r', '--RFID', metavar='', help='RFID number of the animal.')
 parser.add_argument('-t','--timePoint', type=int, metavar='', help='Time point within your study in weeks.')
