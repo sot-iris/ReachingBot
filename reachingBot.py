@@ -129,7 +129,7 @@ def monitorPellet():
         if not blobs:
             pelletPlaced = False
             pLog("Pellet no longer present.")
-            if videoSave == "y":
+            if args.videoSave:
                 if len(framesforvideo) > 150:
                     pLog("Video now saving...")
                     videoProcess(_frames=framesforvideo)
