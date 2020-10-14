@@ -13,6 +13,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Firmware for running the ReachingBot.')
 parser.add_argument('-v', '--videoSave', action='store_true', help='Do you want to save the videos?')
+parser.add_argument('-s', '--showImage', action='store_true', help='Do you want to display the live image?')
 parser.add_argument('-m', '--maxTrials', type=int, metavar='', required=True, help='Number of trials to execute.')
 parser.add_argument('-r', '--RFID', metavar='', help='RFID number of the animal.')
 parser.add_argument('-t','--timePoint', type=int, metavar='', help='Time point within your study in weeks.')
@@ -86,16 +87,15 @@ def processFrame(frametoProcess, cropping=[140,240,90,160]):
 
 def blobStream():
     global cameraOn
-    global showImage
     while cameraOn:
         if len(cameraStream) > 2:
             pel = processFrame(frametoProcess=cameraStream[-1])
             image = cameraStream[-1]
             if pel:
                 blobs.append(pel)
-                if showImage:
+                if args.showImage:
                     cv2.circle(image, (int(pel.x), int(pel.y)), int(pel.size), (0, 0, 255), thickness=2, shift=0)
-            if showImage:
+            if args.showImage:
                 cv2.imshow("live frame", image)#[140:240,90:160])
                 cv2.waitKey(1) & 0xFF
 
