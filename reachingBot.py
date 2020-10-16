@@ -60,7 +60,7 @@ def stopCamera():
 def videoProcess(_frames=None):
     global trial_number
     finalFrames = _frames
-    videoName = "{}/{}_week{}_trial{}.avi".format(folder, RFID_NAME, timePoint, trial_number)
+    videoName = "{}/{}_week{}_trial{}.avi".format(folder, args.RFID, args.timePoint, trial_number)
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     out = cv2.VideoWriter(videoName, fourcc, 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
