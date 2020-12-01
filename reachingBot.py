@@ -39,6 +39,7 @@ blobs = deque(maxlen=10) #contains instances of the Pellet class
 pelletPlaced = False #used to stop and start appending frames to buffer that'll get
 trial_number = 1
 cameraOn = True
+active = True
 
 def remove(itemToRemove, wholeString):
     new = ""
@@ -150,20 +151,28 @@ def activateTrial():
         pLog("Pellet not placed")
         return False
 
+def timer():
+    global active
+    counter = 0
+    while True:
+        counter += 1
+        time.sleep(1)
+        if counter > overallTime:
+            active = False
+            
 start_stream = threading.Thread(target=addFrames)
 start_stream.start()
 
 blob_stream = threading.Thread(target=blobStream)
 blob_stream.start()
 
+time_stream = threading.Thread(target=timer)
+time_stream.start()
+
 if __name__ == '__main__':
     trial = 0
     error = 0
-    now = time.time()
-    diff = 0
-    while diff < overallTime:
-        then = time.time()
-        diff = then - now
+    while active:
         try:
             if trial < int(args.maxTrials):
 
@@ -179,7 +188,6 @@ if __name__ == '__main__':
                 elif error > 5:
                     pLog("Too many failed pellet retrievals")
                     break
-                print("Time elapsed {}".format(diff))
             else:
                 pLog("Trials ended")
                 break
@@ -189,6 +197,7 @@ if __name__ == '__main__':
             cv2.destroyAllWindows()
             pLog("program terminated")
             break
+
     print("Session ended after {} minutes.".format(args.timeTrial))
     cv2.destroyAllWindows()
     stopCamera()
