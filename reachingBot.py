@@ -31,7 +31,6 @@ else:
     pLog("Not saving videos.")
 
 overallTime = args.timeTrial * 60
-print(overallTime)
 waitTime = 60
 Cam = Camera()
 framesforvideo = deque(maxlen=350) #contains the frames that'll get stored to video
@@ -161,7 +160,8 @@ if __name__ == '__main__':
     trial = 0
     error = 0
     now = time.time()
-    while True:
+    active = True
+    while active:
         try:
             if trial < int(args.maxTrials):
                 then = time.time()
@@ -180,7 +180,7 @@ if __name__ == '__main__':
                     break
                 elif diff > overallTime:
                     plog("Session ended after {} minutes.".format(args.timeTrial))
-                    break
+                    active = False
                 print("Time elapsed {}".format(diff))
             else:
                 pLog("Trials ended")
