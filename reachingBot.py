@@ -157,7 +157,6 @@ def timer():
     while True:
         counter += 1
         time.sleep(1)
-        print(counter)
         if counter > overallTime:
             active = False
             break
