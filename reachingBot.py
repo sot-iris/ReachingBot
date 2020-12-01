@@ -31,6 +31,7 @@ else:
     pLog("Not saving videos.")
 
 overallTime = args.timeTrial * 60
+print(overallTime)
 waitTime = 60
 Cam = Camera()
 framesforvideo = deque(maxlen=350) #contains the frames that'll get stored to video
@@ -62,7 +63,7 @@ def stopCamera():
 def videoProcess(_frames=None):
     global trial_number
     finalFrames = _frames
-    videoName = "{}/{}_week{}_trial{}.avi".format(folder, args.RFID, args.timePoint, trial_number)
+    videoName = "{}/{}_{}_trial{}.avi".format(folder, args.RFID, args.timePoint, trial_number)
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     out = cv2.VideoWriter(videoName, fourcc, 30, (320, 240))
     fps = len(finalFrames) / (finalFrames[-1].time - finalFrames[0].time)
@@ -180,6 +181,7 @@ if __name__ == '__main__':
                 elif diff > overallTime:
                     plog("Session ended after {} minutes.".format(args.timeTrial))
                     break
+                print("Time elapsed {}".format(diff))
             else:
                 pLog("Trials ended")
                 break
