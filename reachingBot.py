@@ -15,20 +15,22 @@ parser = argparse.ArgumentParser(description='Firmware for running the ReachingB
 parser.add_argument('-v', '--videoSave', action='store_true', help='Do you want to save the videos?')
 parser.add_argument('-s', '--showImage', action='store_true', help='Do you want to display the live image?')
 parser.add_argument('-m', '--maxTrials', type=int, metavar='', required=True, help='Number of trials to execute.')
+parser.add_argument('-o', '--timeTrial', type=int, metavar='', required=True, help='Number of minutes for session.')
 parser.add_argument('-r', '--RFID', metavar='', help='RFID number of the animal.')
-parser.add_argument('-t','--timePoint', type=int, metavar='', help='Time point within your study in weeks.')
+parser.add_argument('-t','--timePoint', metavar='', help='Time point within your study in weeks.')
 args = parser.parse_args()
 
 if args.videoSave and (args.RFID is None or args.timePoint is None):
     parser.error('--videoSave requires --RFID and --timePoint.')
 
 if args.videoSave:
-    folder = "{}_week{}".format(args.RFID, args.timePoint)
+    folder = "{}_{}".format(args.RFID, args.timePoint)
     if not os.path.exists(folder):
         os.makedirs((folder))
 else:
     pLog("Not saving videos.")
 
+overallTime = args.timeTrial * 60
 waitTime = 60
 Cam = Camera()
 framesforvideo = deque(maxlen=350) #contains the frames that'll get stored to video
@@ -157,9 +159,12 @@ blob_stream.start()
 if __name__ == '__main__':
     trial = 0
     error = 0
+    now = time.time()
     while True:
         try:
             if trial < int(args.maxTrials):
+                then = time.time()
+                diff = then - now
                 if error < 5:
                     if getPellet(): #gets a pellet from the dispenser (which turns for 3 seconds), returns true if pellet dispense is successful
                         pLog("Trial {}".format(trial))
@@ -169,8 +174,11 @@ if __name__ == '__main__':
                     else:
                         pLog("No pellet detected.")
                         error += 1
-                else:
+                elif error > 5:
                     pLog("Too many failed pellet retrievals")
+                    break
+                elif diff > overallTime:
+                    plog("Session ended after {} minutes.".format(args.timeTrial))
                     break
             else:
                 pLog("Trials ended")
