@@ -160,12 +160,13 @@ if __name__ == '__main__':
     trial = 0
     error = 0
     now = time.time()
-    active = True
-    while active:
+    diff = 0
+    while diff < overallTime:
+        then = time.time()
+        diff = then - now
         try:
             if trial < int(args.maxTrials):
-                then = time.time()
-                diff = then - now
+
                 if error < 5:
                     if getPellet(): #gets a pellet from the dispenser (which turns for 3 seconds), returns true if pellet dispense is successful
                         pLog("Trial {}".format(trial))
@@ -178,9 +179,6 @@ if __name__ == '__main__':
                 elif error > 5:
                     pLog("Too many failed pellet retrievals")
                     break
-                elif diff > overallTime:
-                    plog("Session ended after {} minutes.".format(args.timeTrial))
-                    active = False
                 print("Time elapsed {}".format(diff))
             else:
                 pLog("Trials ended")
@@ -191,7 +189,7 @@ if __name__ == '__main__':
             cv2.destroyAllWindows()
             pLog("program terminated")
             break
-
+    print("Session ended after {} minutes.".format(args.timeTrial))
     cv2.destroyAllWindows()
     stopCamera()
     print("All done here")
