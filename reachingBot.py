@@ -177,7 +177,6 @@ if __name__ == '__main__':
     while active:
         try:
             if trial < int(args.maxTrials):
-
                 if error < 5:
                     if getPellet(): #gets a pellet from the dispenser (which turns for 3 seconds), returns true if pellet dispense is successful
                         pLog("Trial {}".format(trial))
@@ -200,7 +199,7 @@ if __name__ == '__main__':
             pLog("program terminated")
             break
 
-    print("Session ended after {} minutes.".format(args.timeTrial))
+    print("Session ended after {} minute(s).".format(args.timeTrial))
     cv2.destroyAllWindows()
     stopCamera()
     print("All done here")
