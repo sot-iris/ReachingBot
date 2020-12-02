@@ -117,33 +117,28 @@ def getPellet():
 
 def addFrames():
     global cameraOn
-    global pelletPlaced
     while cameraOn:
         frametoProcess = Cam.FrameGenerator()
         cameraStream.append(frametoProcess.frame)
-        if pelletPlaced:
-            framesforvideo.append(frametoProcess)
+        framesforvideo.append(frametoProcess)
 
 def monitorPellet():
-    global pelletPlaced
     first = time.time()
     while isPellet():
         blobs.pop()
         if not blobs:
-            pelletPlaced = False
             pLog("Pellet no longer present.")
             if args.videoSave:
                 if len(framesforvideo) > 150:
                     pLog("Video now saving...")
-                    videoProcess(_frames=framesforvideo)
+                    cop = framesforvideo.copy()
+                    videoProcess(_frames=tuple(cop))
             break
         time.sleep(0.1)
 
 def activateTrial():
-    global pelletPlaced
     pLog("Trial active.")
     if isPellet():
-        pelletPlaced = True
         while pelletPlaced:
             monitorPellet()
         return True
