@@ -128,6 +128,12 @@ def monitorPellet():
     first = time.time()
     while isPellet():
         blobs.pop()
+        second = time.time()
+        diff = second - first
+        if diff > 90:
+            pLog("Trial timed out.")
+            pelletPlaced = False
+            return False
         if not blobs:
             pelletPlaced = False
             pLog("Pellet no longer present.")
@@ -135,7 +141,7 @@ def monitorPellet():
                 if len(framesforvideo) > 150:
                     pLog("Video now saving...")
                     videoProcess(_frames=framesforvideo)
-            break
+            return True
         time.sleep(0.1)
 
 def activateTrial():
@@ -144,8 +150,10 @@ def activateTrial():
     if isPellet():
         pelletPlaced = True
         while pelletPlaced:
-            monitorPellet()
-        return True
+            if monitorPellet():
+                return True
+            else:
+                return False
     else:
         pLog("Pellet not placed")
         return False
@@ -158,6 +166,9 @@ def timer():
         time.sleep(1)
         if counter > overallTime:
             active = False
+            stopCamera()
+            cv2.destroyAllWindows()
+            pLog(print("Session ended after {} minute(s).".format(args.timeTrial))")
             break
 
 start_stream = threading.Thread(target=addFrames)
@@ -178,8 +189,8 @@ if __name__ == '__main__':
                 if error < 5:
                     if getPellet(): #gets a pellet from the dispenser (which turns for 3 seconds), returns true if pellet dispense is successful
                         pLog("Trial {}".format(trial))
-                        activateTrial()
-                        trial += 1
+                        if activateTrial():
+                            trial += 1
                         error = 0
                     else:
                         pLog("No pellet detected.")
@@ -197,7 +208,7 @@ if __name__ == '__main__':
             pLog("program terminated")
             break
 
-    print("Session ended after {} minute(s).".format(args.timeTrial))
+
     cv2.destroyAllWindows()
     stopCamera()
     print("All done here")
